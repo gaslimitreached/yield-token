@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.0;
 
 import "openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol";
 import "openzeppelin-contracts/contracts/token/ERC721/ERC721.sol";
@@ -65,7 +65,7 @@ contract YieldToken is ERC20, IERC721Receiver {
 
         stakes[tokenId] = msg.sender;
         // Only update if this is the first staked token.
-        if (claimed[msg.sender] == 0) claimed[msg.sender] = block.timestamp;
+        if (claimed[msg.sender] < 1) claimed[msg.sender] = block.timestamp;
         emit Deposit(msg.sender, tokenId);
         token.safeTransferFrom(msg.sender, address(this), tokenId);
         return claimed[msg.sender];
